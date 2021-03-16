@@ -8,23 +8,26 @@ while l:
     if l.startswith('Sigma'):
         l = f.readline()
         while l.startswith('End') is False:
-            l = l.strip('\t\n')
+            l = l.strip('\t\n').replace(" ","")
             sigma.append(l)
             l = f.readline()
     elif l.startswith('States'):
         l = f.readline()
         while l.startswith('End') is False:
-            l = l.strip('\t\n').split(', ')
+            l = l.replace(" ", "").strip('\t\n')
+            l = l.split(',')
             states.append(l)
             l = f.readline()
     elif l.startswith('Transitions'):
         l = f.readline()
         while l.startswith('End') is False:
-            l = l.strip('\t\n').split(', ')
+            l = l.replace(" ", "").strip('\t\n')
+            l = l.split(',')
             transitions.append(l)
             l = f.readline()
     l = f.readline()
 e = 0
+
 for t in transitions:
     a = b = 0
     if t[1] not in sigma:
@@ -42,9 +45,8 @@ for t in transitions:
         e += 1
         print("Nu exista starea " + t[2] + " a elementului " + t[1])
 c = 0
-for s in states:
-    for i in s:
-        if i == "S":
+for i in range(len(states)):
+    if len(states[i])>1 and states[i][1] == "S":
             c += 1
 if c != 1:
     print("Eroare in declararea starilor: " + str(c) + " variablie S")
