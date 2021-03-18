@@ -88,8 +88,13 @@ def dfa_verify(word, initial_state, states, transitions):
 
     final_state = 0
     for i in range(len(states)):
-        if len(states[i]) > 1 and states[i][1] == "F" and states[i][0] == actual_state:
-            final_state += 1
+        if states[i][0] == actual_state:
+            if len(states[i]) == 2 and states[i][1] == "F":
+                final_state += 1
+                break
+            if len(states[i]) == 3 and states[i][2] == "F":
+                final_state += 1
+                break
     if final_state == 0 or processed_letters != len(word):
         print(">>reject")
     else:
